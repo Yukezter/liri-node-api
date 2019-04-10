@@ -10,7 +10,7 @@ const Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 
 const command = process.argv[2];
-const commandInput = process.argv[3];
+const query = process.argv[3];
 
 // Bands in town
 function concertThis(artist) {
@@ -18,10 +18,11 @@ function concertThis(artist) {
     .then(function(response) {
         const events = response.data;
         events.forEach(event => {
+            const date = moment(event.datetime).format('MM/DD/YYYY')
             console.log('-----------------------------------------');
-            console.log(event.venue.name);
-            console.log(`${event.venue.city}, ${event.venue.country}`);
-            console.log(moment(event.datetime).format('MM/DD/YYYY'));
+            console.log(`Venue name: ${event.venue.name}`);
+            console.log(`Location: ${event.venue.city}, ${event.venue.country}`);
+            console.log(`Date: ${date}`);
         });
     }).catch(function(error) {
         if (error.response) {
@@ -49,10 +50,10 @@ function spotifyThisSong(song) {
         }
         const artists = data.tracks.items[0].artists.map(artist => artist.name);
         console.log('-----------------------------------------');
-        console.log(data.tracks.items[0].name);
-        console.log(artists.join(', '));
-        console.log(data.tracks.items[0].album.name);
-        console.log(data.tracks.items[0].external_urls.spotify);
+        console.log(`Track: ${data.tracks.items[0].name}`);
+        console.log(`Artists: ${artists.join(', ')}`);
+        console.log(`Album: ${data.tracks.items[0].album.name}`);
+        console.log(`Spotify link: ${data.tracks.items[0].external_urls.spotify}`);
     })
 }
 
@@ -61,14 +62,14 @@ function movieThis(movie) {
     axios.get(`http://www.omdbapi.com/?apikey=trilogy&t=${movie}`)
     .then(function(response) {
         console.log('-----------------------------------------');
-        console.log(response.data.Title);
-        console.log(response.data.Year);
-        console.log(response.data.imdbRating);
-        console.log(response.data.Ratings[1].Value);
-        console.log(response.data.Country);
-        console.log(response.data.Language);
-        console.log(response.data.Plot);
-        console.log(response.data.Actors);
+        console.log(`Title: ${response.data.Title}`);
+        console.log(`Year: ${response.data.Year}`);
+        console.log(`IMDB Rating: ${response.data.imdbRating}`);
+        console.log(`Rotton Tomatoes Rating: ${response.data.Ratings[1].Value}`);
+        console.log(`Country: ${response.data.Country}`);
+        console.log(`Language: ${response.data.Language}`);
+        console.log(`Plot: ${response.data.Plot}`);
+        console.log(`Actors: ${response.data.Actors}`);
     }).catch(function(error) {
         if (error.response) {
             console.log(error.response.data);
@@ -90,11 +91,11 @@ function doWhatItSays() {
         }
         const index = data.indexOf(',');
         const command = data.substr(0, index).trim();
-        const commandInput = data.substr(index).trim();
+        const query = data.substr(index).trim();
         if (command === 'do-what-it-says') {
             return console.log('"do-what-it-says" cannot be called in text file!');
         }
-        liri(command, commandInput);
+        liri(command, query);
     })
 }
 
@@ -117,4 +118,4 @@ function liri(argOne, argTwo) {
     }
 }
 
-liri(command, commandInput);
+liri(command, query);
