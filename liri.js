@@ -7,7 +7,7 @@ const axios = require('axios');
 const moment = require('moment');
 const Spotify = require('node-spotify-api');
 
-var spotify = new Spotify(keys.spotify);
+const spotify = new Spotify(keys.spotify);
 
 const command = process.argv[2];
 const query = process.argv[3];
@@ -26,19 +26,14 @@ function concertThis(artist) {
         });
     }).catch(function(error) {
         if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
-          } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an object that comes back with details pertaining to the error that occurred.
-            console.log(error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log("Error", error.message);
-          }
+        } else if (error.request) {
+        console.log(error.request);
+        } else {
+        console.log('Error', error.message);
+        }
     })
 }
 
@@ -75,11 +70,11 @@ function movieThis(movie) {
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
-          } else if (error.request) {
-            console.log(error.request);
-          } else {
-            console.log("Error", error.message);
-          }
+        } else if (error.request) {
+        console.log(error.request);
+        } else {
+        console.log('Error', error.message);
+        }
     })
 }
 
@@ -108,7 +103,7 @@ function liri(argOne, argTwo) {
             spotifyThisSong(argTwo);
             break;
         case 'movie-this':
-            movieThis(argTwo);
+            argTwo ? movieThis(argTwo) : movieThis("Mr. Nobody");
             break;
         case 'do-what-it-says':
             doWhatItSays();
