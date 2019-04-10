@@ -8,10 +8,12 @@ To use, just run liri.js with two arguments:
 ```
 
 There are four commands:
-> concert-this [name of artist/band]
-> spotify-this-song [name of song]
-> movie-this [name of movie]
-> do-what-it-says (no second argument)
+```
+    concert-this [name of artist/band]
+    spotify-this-song [name of song]
+    movie-this [name of movie]
+    do-what-it-says (no second argument)
+```
 
 **Notice**: If "do-what-it-says" command is used, no second argument is needed. This command gets the command and query contained in the text file.
 
