@@ -1,6 +1,6 @@
 # liri-node-api
 
-Here's a Language Interpretation and Recognition Interface I made using node.js. It's able to display upcoming concerts of an artist/band, info of a song, and info of a movie.
+Here's a language interpretation and recognition interface written in node.js. It's able to display upcoming concerts of an artist/band, info of a song, and info of a movie.
 
 To use, just run liri.js with two arguments:
 ```javascript 
